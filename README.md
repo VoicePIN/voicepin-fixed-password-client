@@ -35,4 +35,6 @@ Bit depth: 16 bit
 
 Codec: PCM
 
-Channels: 1 (mono) Length: ~3­5 s
+Channels: 1 (mono)
+
+Length: ~2-­5s
