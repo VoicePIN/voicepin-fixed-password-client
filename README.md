@@ -1,5 +1,8 @@
 # Getting Started
 
+![Enroll process](https://cloud.githubusercontent.com/assets/1618196/7201755/2a3e206e-e50b-11e4-85a6-9d4acf57e4f9.png)| ![Verify process](https://cloud.githubusercontent.com/assets/1618196/7201745/0ef73732-e50b-11e4-8e36-dd1d0e8167a3.png)
+------|--------
+
 ## Creating the voiceprints
 
 In order to use our biometric sollution one has to register voiceprints first. Voiceprint is a set of biometric features that are representing the speaker based on his repeated utterances.
