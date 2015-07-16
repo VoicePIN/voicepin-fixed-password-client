@@ -1,7 +1,6 @@
 # Getting Started
 
-![Enroll process](https://cloud.githubusercontent.com/assets/1618196/7201755/2a3e206e-e50b-11e4-85a6-9d4acf57e4f9.png)| ![Verify process](https://cloud.githubusercontent.com/assets/1618196/7201745/0ef73732-e50b-11e4-8e36-dd1d0e8167a3.png)
-------|--------
+![Enroll and Verify process](https://cloud.githubusercontent.com/assets/1618196/8716463/aa4fc09c-2b91-11e5-9d2e-2db257d139de.jpg)
 
 ## Creating the voiceprints
 
