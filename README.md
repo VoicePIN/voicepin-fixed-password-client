@@ -2,13 +2,26 @@
 
 ![Enroll and Verify process](https://cloud.githubusercontent.com/assets/1618196/8716463/aa4fc09c-2b91-11e5-9d2e-2db257d139de.jpg)
 
+## Glossary
+
+* PasswordGroup - associates speakers that use the same password inside the same organization identified with specific API Key. Organizations may have got more than one PasswordGroup
+corresponding to the same password.
+* PasswordGroupId - is an unique name of a PasswordGroup that will be used for speaker assignment. PasswordGroupId must be exclusive only inside one organization.
+* VoicePrint - is a representation of the speaker inside VoicePIN system. It must correspond to only one passwordGroup.
+* VoicePrintId - UUID of the VoicePrint. It is used for API calls associated to speaker enrollment and verification, as well as for resetting and removing the VoicePrint.
+* Verification Score - #TODO
+* Verification Doubt Score - #TODO
+* Verification Decision - Is an enumerated value returned by VoicePIN API, that should be used to decide whether verifying person should be authenticated or not. Possible values are: **MATCH** - when the speaker is recognized, **MISMATCH** - when the speaker is not recognized and **FRAUD** - when the playback is detected.
+
 ## Creating the voiceprints
 
-In order to use our biometric sollution one has to register voiceprints first. Voiceprint is a set of biometric features that are representing the speaker based on his repeated utterances.
+In order to use our biometric solution one has to register voiceprints first. Voiceprint is a set of biometric features that are representing the speaker based on his repeated utterances.
 
 To register a voiceprint using our API, one has to call a **POST** method on resource: */passwordGroups/{passwordGroupId}*. Returned id now will be pointing on a Voiceprint in our database.
 
 By choosing the **PasswordGroup** one basically decides which password will be used for upcoming verifications.
+
+### externalId
 
 It is not forbidden to add more than one representation of speaker to the same **PasswordGroup** but it is undesirable. If it is still necessary from whatever reasons (for example if we are aware that the same speaker will use different devices for biometric verification) then it is highly advised to make use of **externalId** while adding new voiceprints. It will increase the verification system usability for that speaker.
 
@@ -18,13 +31,25 @@ Next step is to perform the enrollment for specified voiceprint. To do so it wil
 
 Person that is enrolling should speak correct phrase according to chosen **PasswordGroup**, naturally, using possibly the same tone of voice during the process of enrollment
 
-## Verifying/Resetting/Removing
+## Verifying
 
-Now, when the voiceprint is trained, it is possible to perform the verifications. It can be done by calling a **POST** method on resource */voiceprint/{voiceprintId}/verifications*. Retrieved result will show whether the speaker's utterance matches to his Voiceprint or not.
+Now, when the voiceprint is trained, it is possible to perform the verifications. It can be done by calling a **POST** method on resource */voiceprint/{voiceprintId}/verifications*. Retrieved result consists of Verification Score, Verification Doubt Score and
+Verification Decision, described briefly in glossary section. Those
+parameters will help to decide whether user should be authenticated or not.
+
+### Playback Detection
+
+During verification process provided samples are tested for possible fraud attempt. Thus, submitting the same audio sample more than once
+will cause playback detection and **FRAUD** decision will be returned
+as a verification operation result along with Verification Doubt Score.
+
+## Resetting
 
 To reset Voiceprint and allow speaker to perform enrollment once again, a **DELETE** method on resource */voiceprints/{voiceprintId}/enrollments* should be used.
 
-To completely remove the information about specified Voiceprint from database, a **DELETE** method on resource */voiceprints/{voiceprintId}* shoud be called.
+## Removing
+
+To completely remove the information about specified Voiceprint from database, a **DELETE** method on resource */voiceprints/{voiceprintId}* should be called.
 
 ## Input file format Type:
 
