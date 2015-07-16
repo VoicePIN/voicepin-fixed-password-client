@@ -4,7 +4,7 @@
 
 ## Glossary
 
-* PasswordGroup - associates speakers that use the same password inside the same organization identified with specific API Key. Organizations may have got more than one PasswordGroup
+* PasswordGroup - associates the speakers that use the same password inside the same organization identified with specific API Key. Organizations may have got more than one PasswordGroup
 corresponding to the same password.
 * PasswordGroupId - is an unique name of a PasswordGroup that will be used for speaker assignment. PasswordGroupId must be exclusive only inside one organization.
 * VoicePrint - is a representation of the speaker inside VoicePIN system. It must correspond to only one passwordGroup.
