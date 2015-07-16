@@ -27,9 +27,11 @@ It is not forbidden to add more than one representation of speaker to the same *
 
 ## Enrolling
 
-Next step is to perform the enrollment for specified voiceprint. To do so it will be necessary to call a **POST** method on resource */voiceprints/{voiceprintId}/enrollments* at least three times, delivering correctly spelled samples of utterances of the same speaker.
+Next step is to perform the enrollment for specified voiceprint. To do so it will be necessary to call a **POST** method on resource */voiceprints/{voiceprintId}/enrollments* at least three times, delivering correctly spelled samples of the utterance
+spoken by the same speaker and with the same content.
+Content of the utterance depends on the chosen **PasswordGroup**.
 
-Person that is enrolling should speak correct phrase according to chosen **PasswordGroup**, naturally, using possibly the same tone of voice during the process of enrollment
+Person that participate in the registration, should speak naturally, using possibly the same tone of voice during the whole process.
 
 ## Verifying
 
@@ -39,7 +41,8 @@ parameters will help to decide whether user should be authenticated or not.
 
 ### Playback Detection
 
-During verification process provided samples are tested for possible fraud attempt. Thus, submitting the same audio sample more than once
+Provided samples are tested for possibility of fraud attempt during the verification
+process. Thus, submitting the same audio sample more than once
 will cause playback detection and **FRAUD** decision will be returned
 as a verification operation result along with Verification Doubt Score.
 
