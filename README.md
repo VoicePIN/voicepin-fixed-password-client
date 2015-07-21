@@ -2,7 +2,7 @@
 
 ![Enroll and Verify process](https://cloud.githubusercontent.com/assets/1618196/8716463/aa4fc09c-2b91-11e5-9d2e-2db257d139de.jpg)
 
-## Glossary
+## Glossaryl
 
 * PasswordGroup - associates the speakers that use the same password inside the same organization identified with specific API Key. Organizations may have got more than one PasswordGroup
 corresponding to the same password.
@@ -27,7 +27,7 @@ It is not forbidden to add more than one representation of speaker to the same *
 
 Additionally, all samples that are stored for the speaker identifying with
 the same externalId will be used to detect possible fraud attempt, what is described
-more particularly in section Playback Detection. (TODO link)
+more particularly in section [Playback Detection](README.md#playback-detection).
 
 ## Enrolling
 
@@ -55,14 +55,14 @@ as a verification operation result along with Verification Doubt Score.
 To reset Voiceprint and allow speaker to perform enrollment once again, a **DELETE** method on resource */voiceprints/{voiceprintId}/enrollments* should be used.
 
 Unlike the **Remove** operation, resetting the Voiceprint does not erase the
-data used for Playback Detection (TODO link). That makes this operation safe.
+data used for [Playback Detection](README.md#playback-detection). That makes this operation safe.
 
 ## Removing
 
 To completely remove the information about specified Voiceprint from database, a **DELETE** method on resource */voiceprints/{voiceprintId}* should be called.
 
 Unlike the **Reset** operation, removing the Voiceprint also removes the
-data used for Playback Detection (TODO link). That makes this operation unsafe.
+data used for [Playback Detection](README.md#playback-detection). That makes this operation unsafe.
 
 ## Input file format Type:
 
