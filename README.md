@@ -2,7 +2,7 @@
 
 ![Enroll and Verify process](https://cloud.githubusercontent.com/assets/1618196/8716463/aa4fc09c-2b91-11e5-9d2e-2db257d139de.jpg)
 
-## Glossaryl
+## Glossary
 
 * PasswordGroup - associates the speakers that use the same password inside the same organization identified with specific API Key. Organizations may have got more than one PasswordGroup
 corresponding to the same password.
@@ -48,7 +48,7 @@ parameters will help to decide whether user should be authenticated or not.
 Provided samples are tested for possibility of fraud attempt during the verification
 process. Thus, submitting the same audio sample more than once
 will cause playback detection and **FRAUD** decision will be returned
-as a verification operation result along with Verification Doubt Score.
+as a verification operation result along with Verification Doubt Score, described in [glossary](README.md#glossary) section.  
 
 ## Resetting
 
