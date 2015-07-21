@@ -40,7 +40,7 @@ Person that participate in the registration, should speak naturally, using possi
 ## Verifying
 
 Now, when the voiceprint is trained, it is possible to perform the verifications. It can be done by calling a **POST** method on resource */voiceprint/{voiceprintId}/verifications*. Retrieved result consists of Verification Score, Verification Doubt Score and
-Verification Decision, described briefly in [glossary](Readme.md#glossary) section. Those
+Verification Decision, described briefly in [glossary](README.md#glossary) section. Those
 parameters will help to decide whether user should be authenticated or not.
 
 ### Playback Detection
