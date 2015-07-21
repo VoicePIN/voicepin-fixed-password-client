@@ -9,8 +9,10 @@ corresponding to the same password.
 * PasswordGroupId - is an unique name of a PasswordGroup that will be used for speaker assignment. PasswordGroupId must be exclusive only inside one organization.
 * VoicePrint - is a representation of the speaker inside VoicePIN system. It must correspond to only one passwordGroup.
 * VoicePrintId - UUID of the VoicePrint. It is used for API calls associated to speaker enrollment and verification, as well as for resetting and removing the VoicePrint.
-* Verification Score - #TODO
-* Verification Doubt Score - #TODO
+* Verification Score - Is an output of verify method. Higher values mean more
+reliable verification attempt.
+* Verification Doubt Score - Is the one of the results of verify method. Higher
+values mean more possible fraud attempt.
 * Verification Decision - Is an enumerated value returned by VoicePIN API, that should be used to decide whether verifying person should be authenticated or not. Possible values are: **MATCH** - when the speaker is recognized, **MISMATCH** - when the speaker is not recognized and **FRAUD** - when the playback is detected.
 
 ## Creating the voiceprints
