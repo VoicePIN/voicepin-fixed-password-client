@@ -25,6 +25,10 @@ By choosing the **PasswordGroup** one basically decides which password will be u
 
 It is not forbidden to add more than one representation of speaker to the same **PasswordGroup** but it is undesirable. If it is still necessary from whatever reasons (for example if we are aware that the same speaker will use different devices for biometric verification) then it is highly advised to make use of **externalId** while adding new voiceprints. It will increase the verification system usability for that speaker.
 
+Additionally, all samples that are stored for the speaker identifying with
+the same externalId will be used to detect possible fraud attempt, what is described
+more particularly in section Playback Detection. (TODO link)
+
 ## Enrolling
 
 Next step is to perform the enrollment for specified voiceprint. To do so it will be necessary to call a **POST** method on resource */voiceprints/{voiceprintId}/enrollments* at least three times, delivering correctly spelled samples of the utterance
@@ -36,7 +40,7 @@ Person that participate in the registration, should speak naturally, using possi
 ## Verifying
 
 Now, when the voiceprint is trained, it is possible to perform the verifications. It can be done by calling a **POST** method on resource */voiceprint/{voiceprintId}/verifications*. Retrieved result consists of Verification Score, Verification Doubt Score and
-Verification Decision, described briefly in glossary section. Those
+Verification Decision, described briefly in (TODO link) glossary section. Those
 parameters will help to decide whether user should be authenticated or not.
 
 ### Playback Detection
@@ -49,10 +53,14 @@ as a verification operation result along with Verification Doubt Score.
 ## Resetting
 
 To reset Voiceprint and allow speaker to perform enrollment once again, a **DELETE** method on resource */voiceprints/{voiceprintId}/enrollments* should be used.
+Unlike the **Remove** operation, resetting the Voiceprint does not erase the
+data used for Playback Detection (TODO link). That makes this operation safe.
 
 ## Removing
 
 To completely remove the information about specified Voiceprint from database, a **DELETE** method on resource */voiceprints/{voiceprintId}* should be called.
+Unlike the **Reset** operation, removing the Voiceprint also removes the
+data used for Playback Detection (TODO link). That makes this operation unsafe.
 
 ## Input file format Type:
 
