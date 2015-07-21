@@ -40,7 +40,7 @@ Person that participate in the registration, should speak naturally, using possi
 ## Verifying
 
 Now, when the voiceprint is trained, it is possible to perform the verifications. It can be done by calling a **POST** method on resource */voiceprint/{voiceprintId}/verifications*. Retrieved result consists of Verification Score, Verification Doubt Score and
-Verification Decision, described briefly in (TODO link) glossary section. Those
+Verification Decision, described briefly in [glossary](.#glossary) section. Those
 parameters will help to decide whether user should be authenticated or not.
 
 ### Playback Detection
@@ -53,12 +53,14 @@ as a verification operation result along with Verification Doubt Score.
 ## Resetting
 
 To reset Voiceprint and allow speaker to perform enrollment once again, a **DELETE** method on resource */voiceprints/{voiceprintId}/enrollments* should be used.
+
 Unlike the **Remove** operation, resetting the Voiceprint does not erase the
 data used for Playback Detection (TODO link). That makes this operation safe.
 
 ## Removing
 
 To completely remove the information about specified Voiceprint from database, a **DELETE** method on resource */voiceprints/{voiceprintId}* should be called.
+
 Unlike the **Reset** operation, removing the Voiceprint also removes the
 data used for Playback Detection (TODO link). That makes this operation unsafe.
 
