@@ -13,7 +13,11 @@ corresponding to the same password.
 reliable verification attempt.
 * Verification Doubt Score - Is the one of the results of the verification method. Higher
 values mean more possible fraud attempt.
-* Verification Decision - Is an enumerated value returned by the verification method, that should be used to decide whether verifying person should be authenticated or not. Possible values are: **MATCH** - when the speaker is recognized, **MISMATCH** - when the speaker is not recognized and **FRAUD** - when the playback is detected.
+* Verification Decision - Is an enumerated value returned by the verification method, that should be used to decide whether verifying person should be authenticated or not. Possible values are:
+--* **MATCH** - when the speaker is recognized
+--* **MISMATCH** - when the speaker is not recognized
+--* **FRAUD** - when the playback is detected
+--* **WRONG_PHRASE_SPOKEN** - when the content of the utterance in provided audio sample does not match the chosen password
 
 ## Creating the voiceprints
 
