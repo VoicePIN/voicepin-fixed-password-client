@@ -8,17 +8,17 @@
 **/logs
 **/build
 
-**\.settings
-**\bin
-**\target
-**\.classpath
-**\.project
-**\pom.xml.releaseBackup
-**\.pmd
-**\logs
-**\build
+**\\.settings
+**\\bin
+**\\target
+**\\.classpath
+**\\.project
+**\\pom.xml.releaseBackup
+**\\.pmd
+**\\logs
+**\\build
 
-**\.directory
+**\\.directory
 
 .settings
 target
