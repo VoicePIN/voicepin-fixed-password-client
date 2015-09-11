@@ -15,7 +15,7 @@ public class RestClientApp {
     public static void main(String[] args) throws VoicepinClientException {
 
         /* VoicePIN API url */
-        String apiUrl = "https://api.voicepin.com/v1/";
+        String apiUrl = "https://api.voicepin.com/rest/verifier/";
         
         /* Data relating to your voice password - you should obtain these parameters from VoicePIN.com */
         String exampleApiKey = "???????";
@@ -34,7 +34,7 @@ public class RestClientApp {
          * If you already have an id for this particular user, provide this id to this method instead of null
          */
         AddResponse addResponse = voicepinClient.addVoiceprint(null);
-        String voiceprintId = addResponse.getVoiceprintId();        
+        String voiceprintId = addResponse.getVoiceprintId();
         System.out.println("New voiceprintId: " + addResponse.getVoiceprintId());
         /* -- */
         
