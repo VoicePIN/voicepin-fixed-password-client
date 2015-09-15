@@ -7,9 +7,6 @@ public class VerifyResponse extends Response {
     @JsonProperty("Score")
     protected double score;
 
-    @JsonProperty("Doubt")
-    protected double doubt;
-
     @JsonProperty("Decision")
     protected VerifyStatus decision;
 
@@ -19,14 +16,6 @@ public class VerifyResponse extends Response {
 
     public void setScore(double value) {
         this.score = value;
-    }
-
-    public double getDoubt() {
-        return doubt;
-    }
-
-    public void setDoubt(double value) {
-        this.doubt = value;
     }
 
     public VerifyStatus getDecision() {
