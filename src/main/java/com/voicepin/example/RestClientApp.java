@@ -15,7 +15,7 @@ public class RestClientApp {
     public static void main(String[] args) throws VoicepinClientException {
 
         /* VoicePIN API url */
-        String apiUrl = "https://api.voicepin.com/rest/v1/";
+        String apiUrl = "https://api.voicepin.com/rest/v1/verifier";
         
         /* Data relating to your voice password - you should obtain these parameters from VoicePIN.com */
         String exampleApiKey = "???????";
