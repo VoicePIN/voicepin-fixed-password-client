@@ -15,11 +15,11 @@ public class RestClientApp {
     public static void main(String[] args) throws VoicepinClientException {
 
         /* VoicePIN API url */
-        String apiUrl = "http://localhost:8080/voicepin-server/rest/v1/verifier";
+        String apiUrl = "https://api.voicepin.com/rest/v1/verifier";
         
         /* Data relating to your voice password - you should obtain these parameters from VoicePIN.com */
-        String exampleApiKey = "37b1509d-e481-41a1-ae25-f77ec51021e2";
-        String examplePasswordGroup = "uzywam-mojego-glosu-jako-klucza-ivr";
+        String exampleApiKey = "???????";
+        String examplePasswordGroup = "???????";
 
         /* Create client */
         VoicepinClient voicepinClient = new VoicepinClient(apiUrl, examplePasswordGroup, exampleApiKey);
