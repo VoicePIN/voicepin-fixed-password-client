@@ -29,8 +29,8 @@ public class VoicepinClient {
     private static final String VOICEPRINT_PATH = "voiceprints";
     private static final String PASSWORD_GROUP_PATH = "passwordGroups";
 
-    private static final String EXTERNAL_ID_QUERY = "extId";
-    private static final String API_KEY_QUERY = "apiKey";
+    public static final String USER_IDENTIFIER = "speakerId";
+    private static final String API_KEY = "apiKey";
 
     private WebTarget baseWebTarget;
     
@@ -52,10 +52,10 @@ public class VoicepinClient {
         this.baseWebTarget = client.target(voicepinBaseUrl);
     }
 
-    public AddResponse addVoiceprint(String externalId) throws VoicepinClientException {
+    public AddResponse addVoiceprint(String speakerId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).queryParam(EXTERNAL_ID_QUERY, externalId).queryParam(API_KEY_QUERY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).queryParam(USER_IDENTIFIER, speakerId).queryParam(API_KEY, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -72,7 +72,7 @@ public class VoicepinClient {
     public GetIdsResponse getVoiceprints() throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).path(VOICEPRINT_PATH).queryParam(API_KEY_QUERY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).path(VOICEPRINT_PATH).queryParam(API_KEY, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -89,7 +89,7 @@ public class VoicepinClient {
     public IsTrainedResponse isVoiceprintTrained(String voiceprintId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_QUERY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -106,13 +106,13 @@ public class VoicepinClient {
     public EnrollResponse enrollVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_QUERY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
 
         // Create audio stream entity:
-        Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("file", audioInputStream);
+        Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("recording", audioInputStream);
 
         // POST it
         Response response = request.post(multipartEntity);
@@ -126,13 +126,13 @@ public class VoicepinClient {
     public VerifyResponse verifyVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(VERIFICATION_PATH).queryParam(API_KEY_QUERY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(VERIFICATION_PATH).queryParam(API_KEY, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
 
         // Create audio stream entity:
-        Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("file", audioInputStream);
+        Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("recording", audioInputStream);
 
         // POST it
         Response response = request.post(multipartEntity);
@@ -146,7 +146,7 @@ public class VoicepinClient {
     public boolean resetVoiceprint(String voiceprintId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_QUERY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -160,7 +160,7 @@ public class VoicepinClient {
     public boolean removeVoiceprint(String voiceprintId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).queryParam(API_KEY_QUERY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).queryParam(API_KEY, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);

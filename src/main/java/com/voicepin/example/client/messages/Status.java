@@ -1,23 +1,27 @@
 package com.voicepin.example.client.messages;
 
-public enum Status {
+public class Status {
 
-    OK,
-    VOICEPRINT_NOT_EXISTS,
-    VOICEPRINT_ALREADY_EXISTS,
-    VOICEPRINT_NOT_ENROLLED,
-    VOICEPRINT_ALREADY_ENROLLED,
-    PASSWORD_GROUP_NOT_EXISTS,
-    INCORRECT_AUDIO_INPUT,
-    INVALID_LICENSE,
-    USER_ERROR,
-    INTERNAL_ERROR;
+    private int code;
+    private String message;
 
-    public String value() {
-        return name();
+    public int getCode() {
+        return code;
     }
 
-    public static Status fromValue(String v) {
-        return valueOf(v);
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean isValid() {
+        return code == 0;
     }
 }
