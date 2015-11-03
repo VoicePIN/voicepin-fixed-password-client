@@ -5,7 +5,6 @@ public enum VerifyStatus {
     MATCH,
     MISMATCH,
     FRAUD,
-    BANNED,
     WRONG_PHRASE_SPOKEN;
 
     public String value() {

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AddResponse extends Response {
 
-    @JsonProperty("VoiceprintId")
+    @JsonProperty
     protected String voiceprintId;
 
     public AddResponse() {

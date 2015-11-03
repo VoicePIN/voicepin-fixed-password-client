@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EnrollResponse extends Response {
 
-    @JsonProperty("IsTrained")
-    protected boolean isTrained;
+    @JsonProperty
+    protected boolean trained;
     
-    @JsonProperty("EnrollStatus")
+    @JsonProperty
     protected EnrollStatus enrollStatus;
 
-    public boolean isIsTrained() {
-        return isTrained;
+    public boolean isTrained() {
+        return trained;
     }
 
-    public void setIsTrained(boolean value) {
-        this.isTrained = value;
+    public void setTrained(boolean value) {
+        this.trained = value;
     }
 
     public EnrollStatus getEnrollStatus() {
