@@ -172,8 +172,7 @@ public class VoicepinClient {
 
     private Response validate(Response response) throws VoicepinClientException {
         if (response.getStatus() != Status.OK.getStatusCode()) {
-            String description = response.readEntity(com.voicepin.example.client.messages.Response.class).getDescription();
-            throw new VoicepinClientException("VoicePIN returned: " + description);
+            throw new VoicepinClientException("VoicePIN returned: "+ "code: " + response.getStatus()+ " reason: "+ response.getStatusInfo().getReasonPhrase());
         }
         return response;
     }
