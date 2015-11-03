@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Response {
 
-    @JsonProperty("Status")
+    @JsonProperty
     protected Status status;
 
-    @JsonProperty("Description")
+    @JsonProperty
     protected String description;
 
     public Response() {

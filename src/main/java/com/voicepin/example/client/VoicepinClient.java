@@ -1,6 +1,10 @@
 package com.voicepin.example.client;
 
-import java.io.InputStream;
+import com.voicepin.example.client.messages.*;
+import static com.voicepin.example.client.PathConsts.*;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -10,32 +14,16 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
-import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-
-import com.voicepin.example.client.messages.AddResponse;
-import com.voicepin.example.client.messages.EnrollResponse;
-import com.voicepin.example.client.messages.GetIdsResponse;
-import com.voicepin.example.client.messages.IsTrainedResponse;
-import com.voicepin.example.client.messages.VerifyResponse;
+import java.io.InputStream;
 
 
 public class VoicepinClient {
 
-    private static final String VERIFICATION_PATH = "verifications";
-    private static final String ENROLLMENT_PATH = "enrollments";
-    private static final String VOICEPRINT_PATH = "voiceprints";
-    private static final String PASSWORD_GROUP_PATH = "passwordGroups";
-
-    public static final String USER_IDENTIFIER = "speakerId";
-    private static final String API_KEY = "apiKey";
 
     private WebTarget baseWebTarget;
-    
+
     private String apiKey;
-    
+
     private String passwordGroup;
 
     public VoicepinClient(String voicepinBaseUrl, String passwordGroup, String apiKey) {
@@ -55,7 +43,7 @@ public class VoicepinClient {
     public AddResponse addVoiceprint(String speakerId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).queryParam(USER_IDENTIFIER, speakerId).queryParam(API_KEY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).queryParam(USER_IDENTIFIER, speakerId).queryParam(API_KEY_PATH, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -72,7 +60,7 @@ public class VoicepinClient {
     public GetIdsResponse getVoiceprints() throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).path(VOICEPRINT_PATH).queryParam(API_KEY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).path(VOICEPRINT_PATH).queryParam(API_KEY_PATH, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -89,7 +77,7 @@ public class VoicepinClient {
     public IsTrainedResponse isVoiceprintTrained(String voiceprintId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -106,7 +94,7 @@ public class VoicepinClient {
     public EnrollResponse enrollVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -126,7 +114,7 @@ public class VoicepinClient {
     public VerifyResponse verifyVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(VERIFICATION_PATH).queryParam(API_KEY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(VERIFICATION_PATH).queryParam(API_KEY_PATH, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -146,7 +134,7 @@ public class VoicepinClient {
     public boolean resetVoiceprint(String voiceprintId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
@@ -160,7 +148,7 @@ public class VoicepinClient {
     public boolean removeVoiceprint(String voiceprintId) throws VoicepinClientException {
 
         // Adjust WebTarget
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).queryParam(API_KEY, apiKey);
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).queryParam(API_KEY_PATH, apiKey);
 
         // Create request
         Builder request = createRequest(webTarget);
