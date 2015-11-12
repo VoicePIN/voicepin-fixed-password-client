@@ -1,7 +1,5 @@
 # Getting Started
 
-![Enroll and Verify process](https://cloud.githubusercontent.com/assets/1618196/8716463/aa4fc09c-2b91-11e5-9d2e-2db257d139de.jpg)
-
 ## Glossary
 *	**UBM** – biometric universal background model for a given phrase; the system can determine which voice parameters in a given phrase are unique and which are common for a group of speakers,
 *	**Password Group** – groups the users using the same phrase within a given organisation; an appropriate UBM file will be required to create a new Password Group,
