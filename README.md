@@ -14,7 +14,7 @@ In order to carry out an operation with API VoicePIN for a given user, create hi
 
 From now on the returned Voiceprint ID will indicate the Voiceprint of a given user in the database. Until the registration, the Voiceprint cannot however be used for verification of a given speaker.
 
-Voiceprint is assigned to a given Password Group (passwordGroupName parameter) which means that it is linked to the phrase which will be used during the verification.
+Voiceprint is assigned to a given Password Group (**passwordGroupName** parameter) which means that it is linked to the phrase which will be used during the verification.
 
 
 ## Enrolling
