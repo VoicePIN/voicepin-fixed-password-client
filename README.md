@@ -3,45 +3,39 @@
 ![Enroll and Verify process](https://cloud.githubusercontent.com/assets/1618196/8716463/aa4fc09c-2b91-11e5-9d2e-2db257d139de.jpg)
 
 ## Glossary
-
-* PasswordGroup - associates the speakers that use the same password inside the same organization identified with specific API Key. Organizations may have got more than one PasswordGroup
-corresponding to the same password.
-* PasswordGroupId - is an unique name of a PasswordGroup that will be used for speaker assignment. PasswordGroupId must be exclusive only inside one organization.
-* VoicePrint - is a representation of the speaker inside VoicePIN system. It must correspond to only one passwordGroup.
-* VoicePrintId - UUID of the VoicePrint. It is used for API calls associated to speaker enrollment and verification, as well as for resetting and removing the VoicePrint.
-* Verification Score - Is an output of the verification method. It's the representation of likelihood that the verification attempt matches user statistical model (voiceprint). Higher values mean more
-reliable verification attempt.
-* Verification Doubt Score - Is the one of the results of the verification method. The score is the maximum of similarity measures between the verification recording and previously used ones. Higher
-values mean more possible fraud attempt.
-* Verification Decision - Is an enumerated value returned by the verification method, that should be used to decide whether verifying person should be authenticated or not. Possible values are:
-  * **MATCH** - when the speaker is recognized
-  * **MISMATCH** - when the speaker is not recognized
-  * **FRAUD** - when the playback is detected
-  * **WRONG_PHRASE_SPOKEN** - when the content of the utterance in provided audio sample does not match the chosen password
+*	UBM – biometric universal background model for a given phrase; the system can determine which voice parameters in a given phrase are unique and which are common for a group of speakers,
+*	Password Group – groups the users using the same phrase within a given organisation; an appropriate UBM file will be required to create a new Password Group,
+*	Voiceprint – a biometric statistic model of a user's voice represented by a matrix of parameters created on the basis of training recordings; a given Voiceprint can only be assigned to one Password Group only,
+*	Voiceprint ID – a unique Voiceprint ID number used during API method callouts which indicates the biometric model of a given user, 
+*	Playback Activity Detection (PAD) – a system used to detect the re-use of a voice sample which has already been successfully used during a verification or an enrollment of the specified user
 
 ## Creating the voiceprints
 
-In order to use our biometric solution one has to register voiceprints first. Voiceprint is a set of biometric features that are representing the speaker based on his repeated utterances.
+In order to carry out an operation with API VoicePIN for a given user, create his/her Voiceprint. To do so, call the POST method on the resource:
+*/passwordGroups/{passwordGroupName}*
 
-To register a voiceprint using our API, one has to call a **POST** method on resource: */passwordGroups/{passwordGroupId}*. Returned id now will be pointing on a Voiceprint in our database.
+From now on the returned Voiceprint ID will indicate the Voiceprint of a given user in the database. Until the registration, the Voiceprint cannot however be used for verification of a given speaker.
 
-By choosing the **PasswordGroup** one basically decides which password will be used for upcoming verifications.
+Voiceprint is assigned to a given Password Group (passwordGroupName parameter) which means that it is linked to the phrase which will be used during the verification.
 
-### externalId
-
-It is not forbidden to add more than one representation of speaker to the same **PasswordGroup** but it is undesirable. If it is still necessary from whatever reasons (for example if we are aware that the same speaker will use different devices for biometric verification) then it is highly advised to make use of **externalId** while adding new voiceprints. It will increase the verification system usability for that speaker.
-
-Additionally, all samples that are stored for the speaker identifying with
-the same externalId will be used to detect possible fraud attempt, what is described
-more particularly in section [Playback Detection](README.md#playback-detection).
 
 ## Enrolling
 
-Next step is to perform the enrollment for specified voiceprint. To do so it will be necessary to call a **POST** method on resource */voiceprints/{voiceprintId}/enrollments* at least three times, delivering correctly spelled samples of the utterance
-spoken by the same speaker and with the same content.
-Content of the utterance depends on the chosen **PasswordGroup**.
+Before a user can be verified, the system must "know" his/her voice. To do so, the existing Voiceprint must be registered (so called "enrollment") on the basis of at least 3 voice samples which contain the phrase that will be used for verification. If a recording is unclear or has a noise in the background, the system may request another recording to be provided. During the registration a unique voice model is created which will be assigned to a given Voiceprint ID. In addition some characteristic features of the recording are registered which will be used by the PAD system.
 
-Person that participate in the registration, should speak naturally, using possibly the same tone of voice during the whole process.
+To carry out the registration, call 3 times the POST method on the */voiceprints/{voiceprintId}/enrollments* resource at least 3 times; thus the VoicePIN system will be provided with the phrase correctly pronounced by the same person. The person to be registered should speak naturally. 
+
+**enrollStatus** – system response that determines whether the recording was accepted or not; possible values:
+  * SAMPLE_ACCEPTED – the recording is accepted,
+  * SAMPLE_REJECTED – the recording contains an incorrect phrase or too much noise.
+
+**trained** – information from the system returned after a sample was sent; determines whether a given Voiceprint is "trained" by appropriate number of samples.
+  *	false – more samples are required,
+  *	true – registration is successful.
+
+The figure below shows a simplified diagram of system component integration during registration:
+
+
 
 ## Verifying
 
@@ -74,9 +68,9 @@ data used for [Playback Detection](README.md#playback-detection). That makes thi
 
 Wave Sampling frequency: 8000 Hz
 
-Bit depth: 16 bit
+Codec: linear PCM or PCM-A or PCM-U
 
-Codec: PCM
+Bit depth: 16 bit (linear PCM) or 8 bit (PCM-A/PCM-U) 
 
 Channels: 1 (mono)
 
