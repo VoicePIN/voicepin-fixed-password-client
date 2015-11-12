@@ -33,7 +33,7 @@ To carry out the registration, call 3 times the **POST** method on the */voicepr
 
 The figure below shows a simplified diagram of system component integration during registration:
 
-![Enroll process](https://cloud.githubusercontent.com/assets/15819858/11124701/9448d724-8966-11e5-9600-2ed05b1623a7.png)
+![Enroll process](https://cloud.githubusercontent.com/assets/15819858/11125262/45b87e2c-8969-11e5-9a5e-6ebb1da0acbc.png)
 
 ## Verifying
 
