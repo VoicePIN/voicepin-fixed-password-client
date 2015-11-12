@@ -7,6 +7,20 @@
 *	**Voiceprint ID** – a unique Voiceprint ID number used during API method callouts which indicates the biometric model of a given user, 
 *	**Playback Activity Detection (PAD)** – a system used to detect the re-use of a voice sample which has already been successfully used during a verification or an enrollment of the specified user
 
+## Input file format Type:
+
+Only **WAVE** files are allowed
+
+Sampling frequency: **8000 Hz**
+
+Codec: linear **PCM** or **PCM-A** or **PCM-U**
+
+Bit depth: **16 bit** (linear PCM) or **8 bit** (PCM-A/PCM-U) 
+
+Channels: **1 (mono)**
+
+Length: **~2-­5s**
+
 ## Creating the voiceprints
 
 In order to carry out an operation with API VoicePIN for a given user, create his/her Voiceprint. To do so, call the **POST** method on the resource:
@@ -63,16 +77,3 @@ To completely remove the information about specified Voiceprint from database, a
 
 Contrary to resetting the Voiceprint, the method described here removes the information required for correct operation of PAD system in case of re-registration.
 
-## Input file format Type:
-
-Only **WAVE** files are allowed
-
-Sampling frequency: **8000 Hz**
-
-Codec: linear **PCM** or **PCM-A** or **PCM-U**
-
-Bit depth: **16 bit** (linear PCM) or **8 bit** (PCM-A/PCM-U) 
-
-Channels: **1 (mono)**
-
-Length: **~2-­5s**
