@@ -35,7 +35,7 @@ Voiceprint is assigned to a given Password Group (**passwordGroupName** paramete
 
 Before a user can be verified, the system must "know" his/her voice. To do so, the existing Voiceprint must be registered (so called "enrollment") on the basis of at least 3 voice samples which contain the phrase that will be used for verification. If a recording is unclear or has a noise in the background, the system may request another recording to be provided. During the registration a unique voice model is created which will be assigned to a given Voiceprint ID. In addition some characteristic features of the recording are registered which will be used by the PAD system.
 
-To carry out the registration, call 3 times the **POST** method on the */voiceprints/{voiceprintId}/enrollments* resource at least 3 times; thus the VoicePIN system will be provided with the phrase correctly pronounced by the same person. The person to be registered should speak naturally. 
+To carry out the registration, the **POST** method on the */voiceprints/{voiceprintId}/enrollments* resource at least 3 times; thus the VoicePIN system will be provided with the phrase correctly pronounced by the same person. The person to be registered should speak naturally. 
 
 **enrollStatus** – system response that determines whether the recording was accepted or not; possible values:
   * SAMPLE_ACCEPTED – the recording is accepted,
