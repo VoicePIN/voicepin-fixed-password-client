@@ -4,8 +4,7 @@ public enum EnrollStatus {
 
     SAMPLE_ACCEPTED,
     SAMPLE_REJECTED,
-    WRONG_PHRASE_SPOKEN,
-    TRAINED;
+    WRONG_PHRASE_SPOKEN;
 
     public String value() {
         return name();

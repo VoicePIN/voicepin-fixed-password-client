@@ -4,13 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class VerifyResponse extends Response {
 
-    @JsonProperty("Score")
+    @JsonProperty
     protected double score;
 
-    @JsonProperty("Doubt")
-    protected double doubt;
-
-    @JsonProperty("Decision")
+    @JsonProperty
     protected VerifyStatus decision;
 
     public double getScore() {
@@ -19,14 +16,6 @@ public class VerifyResponse extends Response {
 
     public void setScore(double value) {
         this.score = value;
-    }
-
-    public double getDoubt() {
-        return doubt;
-    }
-
-    public void setDoubt(double value) {
-        this.doubt = value;
     }
 
     public VerifyStatus getDecision() {
