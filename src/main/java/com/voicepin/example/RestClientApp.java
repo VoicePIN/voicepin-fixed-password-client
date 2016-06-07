@@ -15,9 +15,12 @@ public class RestClientApp {
     public static void main(String[] args) throws VoicepinClientException {
 
         /* VoicePIN API url */
-        String apiUrl = "https://api.voicepin.com/rest/v1/verifier";
+        String apiUrl = "https://api.voicepin.com/rest/v1/verifier/";
         
-        /* Data relating to your voice password - you should obtain these parameters from VoicePIN.com */
+        /* Data relating to your voice password - you should obtain these parameters from VoicePIN.com
+         *
+         * NOTE: Recordings provided with this example need to be used with 'Verify me with my voicepin' phrase.
+         */
         String exampleApiKey = "???????";
         String examplePasswordGroup = "???????";
 
@@ -42,13 +45,13 @@ public class RestClientApp {
         /* With the obtained voicepintId we can enroll a user (register voice and create voiceprint) 
          * For creating a voiceprint model we need three samples so we are going to enroll the voiceprint three times
          */
-        EnrollResponse enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/record_1.wav"));
+        EnrollResponse enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_1.wav"));
         System.out.println("First sample enrollment result: " + enrollResponse.getEnrollStatus());
         
-        enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/record_2.wav"));
+        enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_2.wav"));
         System.out.println("Second sample enrollment result: " + enrollResponse.getEnrollStatus());
         
-        enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/record_3.wav"));
+        enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_3.wav"));
         System.out.println("Third sample enrollment result: " + enrollResponse.getEnrollStatus());
         /* -- */
                 
@@ -60,10 +63,10 @@ public class RestClientApp {
         
         
         /* Finally we can verify the user with another audio streams */
-        VerifyResponse verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/record_4.wav"));
+        VerifyResponse verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_4.wav"));
         System.out.println("First sample verification decision: " + verifyResponse.getDecision());
 
-        verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/record_5.wav"));
+        verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_5.wav"));
         System.out.println("Second sample verification decision: " + verifyResponse.getDecision());
         /* -- */
         
