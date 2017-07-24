@@ -1,18 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.voicepin.examples</groupId>
-    <artifactId>voicepin-client-example</artifactId>
-    <version>0.9-SNAPSHOT</version>
-    <name>VoicePIN REST Client example</name>
+    <groupId>com.voicepin.fixedpassword</groupId>
+    <artifactId>voicepin-fixed-password-client</artifactId>
+    <version>1.0.0</version>
+    <name>VoicePIN Fixed Password REST Client</name>
 
     <dependencies>
 
-        <!-- Jersey - RESTful Web Client -->
         <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersey.version}</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>22.0</version>
         </dependency>
 
         <dependency>
@@ -26,8 +25,6 @@
             <artifactId>jersey-media-multipart</artifactId>
             <version>${jersey.version}</version>
         </dependency>
-
-        <!-- Jackson - JSON parser -->
 
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -57,7 +54,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.voicepin.example.RestClientApp</mainClass>
+                            <mainClass>com.voicepin.fixedpassword.client.example.RestClientApp</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

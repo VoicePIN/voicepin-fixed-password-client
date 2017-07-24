@@ -27,6 +27,8 @@ target
 pom.xml.releaseBackup
 release.properties
 .pmd
+*.iml
 
 *.log
 *.conflict
+

@@ -1,4 +1,4 @@
-package com.voicepin.example.client.messages;
+package com.voicepin.fixedpassword.client.messages;
 
 public class Response {
 

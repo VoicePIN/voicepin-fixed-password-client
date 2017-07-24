@@ -1,13 +1,13 @@
-package com.voicepin.example;
+package com.voicepin.fixedpassword.client.example;
 
 import java.io.InputStream;
 
-import com.voicepin.example.client.VoicepinClient;
-import com.voicepin.example.client.VoicepinClientException;
-import com.voicepin.example.client.messages.AddResponse;
-import com.voicepin.example.client.messages.EnrollResponse;
-import com.voicepin.example.client.messages.IsTrainedResponse;
-import com.voicepin.example.client.messages.VerifyResponse;
+import com.voicepin.fixedpassword.client.VoicepinClient;
+import com.voicepin.fixedpassword.client.VoicepinClientException;
+import com.voicepin.fixedpassword.client.messages.AddResponse;
+import com.voicepin.fixedpassword.client.messages.EnrollResponse;
+import com.voicepin.fixedpassword.client.messages.IsTrainedResponse;
+import com.voicepin.fixedpassword.client.messages.VerifyResponse;
 
 
 public class RestClientApp {
@@ -15,14 +15,15 @@ public class RestClientApp {
     public static void main(String[] args) throws VoicepinClientException {
 
         /* VoicePIN API url */
-        String apiUrl = "https://api.voicepin.com/rest/v1/verifier/";
-        
+        //String apiUrl = "https://api.voicepin.com/rest/v1/verifier/";
+        String apiUrl = "http://localhost:8080/voicepin-server/rest/v1/verifier/";
+
         /* Data relating to your voice password - you should obtain these parameters from VoicePIN.com
          *
          * NOTE: Recordings provided with this example need to be used with 'Verify me with my voicepin' phrase.
          */
-        String exampleApiKey = "???????";
-        String examplePasswordGroup = "???????";
+        String exampleApiKey = "6371f8b4-b08a-480f-ab82-11bd856f3f88";
+        String examplePasswordGroup = "test-password-group";
 
         /* Create client */
         VoicepinClient voicepinClient = new VoicepinClient(apiUrl, examplePasswordGroup, exampleApiKey);
@@ -46,13 +47,13 @@ public class RestClientApp {
          * For creating a voiceprint model we need three samples so we are going to enroll the voiceprint three times
          */
         EnrollResponse enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_1.wav"));
-        System.out.println("First sample enrollment result: " + enrollResponse.getEnrollStatus());
+        System.out.println("First sample enrollment result: " + enrollResponse);
         
         enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_2.wav"));
-        System.out.println("Second sample enrollment result: " + enrollResponse.getEnrollStatus());
+        System.out.println("Second sample enrollment result: " + enrollResponse);
         
         enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_3.wav"));
-        System.out.println("Third sample enrollment result: " + enrollResponse.getEnrollStatus());
+        System.out.println("Third sample enrollment result: " + enrollResponse);
         /* -- */
                 
         
@@ -64,10 +65,10 @@ public class RestClientApp {
         
         /* Finally we can verify the user with another audio streams */
         VerifyResponse verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_4.wav"));
-        System.out.println("First sample verification decision: " + verifyResponse.getDecision());
+        System.out.println("First sample verification result: " + verifyResponse);
 
         verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_5.wav"));
-        System.out.println("Second sample verification decision: " + verifyResponse.getDecision());
+        System.out.println("Second sample verification result: " + verifyResponse);
         /* -- */
         
         

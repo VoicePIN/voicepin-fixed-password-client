@@ -1,4 +1,4 @@
-package com.voicepin.example.client.messages;
+package com.voicepin.fixedpassword.client.messages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

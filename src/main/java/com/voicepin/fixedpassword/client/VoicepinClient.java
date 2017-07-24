@@ -1,7 +1,10 @@
-package com.voicepin.example.client;
+package com.voicepin.fixedpassword.client;
 
-import com.voicepin.example.client.messages.*;
-import static com.voicepin.example.client.PathConsts.*;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.voicepin.fixedpassword.client.messages.*;
+import static com.voicepin.fixedpassword.client.PathConsts.*;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
@@ -30,130 +33,77 @@ public class VoicepinClient {
         this.apiKey = apiKey;
         this.passwordGroup = passwordGroup;
 
-        // Create client
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        JacksonJaxbJsonProvider jsonProvider = new JacksonJaxbJsonProvider();
+        jsonProvider.setMapper(mapper);
+
         Client client = ClientBuilder.newClient();
-
-        // Add Multipart Feature for audio streams
         client.register(MultiPartFeature.class);
+        client.register(jsonProvider);
 
-        // Get base WebTarget
         this.baseWebTarget = client.target(voicepinBaseUrl);
     }
 
     public AddResponse addVoiceprint(String speakerId) throws VoicepinClientException {
-
-        // Adjust WebTarget
         WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).queryParam(USER_IDENTIFIER, speakerId).queryParam(API_KEY_PATH, apiKey);
-
-        // Create request
         Builder request = createRequest(webTarget);
-
-        // POST it
         Response response = request.post(null);
-
-        // Validate and read response
         AddResponse addResponse = validate(response).readEntity(AddResponse.class);
 
         return addResponse;
     }
 
     public GetIdsResponse getVoiceprints() throws VoicepinClientException {
-
-        // Adjust WebTarget
         WebTarget webTarget = baseWebTarget.path(PASSWORD_GROUP_PATH).path(passwordGroup).path(VOICEPRINT_PATH).queryParam(API_KEY_PATH, apiKey);
-
-        // Create request
         Builder request = createRequest(webTarget);
-
-        // GET it
         Response response = request.get();
-
-        // Validate and read response
         GetIdsResponse getIdsResponse = validate(response).readEntity(GetIdsResponse.class);
 
         return getIdsResponse;
     }
 
     public IsTrainedResponse isVoiceprintTrained(String voiceprintId) throws VoicepinClientException {
-
-        // Adjust WebTarget
         WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
-
-        // Create request
         Builder request = createRequest(webTarget);
-
-        // GET it
         Response response = request.get();
-
-        // Validate and read response
         IsTrainedResponse isTrainedResponse = validate(response).readEntity(IsTrainedResponse.class);
 
         return isTrainedResponse;
     }
 
     public EnrollResponse enrollVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
-
-        // Adjust WebTarget
         WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
-
-        // Create request
         Builder request = createRequest(webTarget);
-
-        // Create audio stream entity:
         Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("recording", audioInputStream);
-
-        // POST it
         Response response = request.post(multipartEntity);
-
-        // Validate and read response
         EnrollResponse enrollResponse = validate(response).readEntity(EnrollResponse.class);
 
         return enrollResponse;
     }
 
     public VerifyResponse verifyVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
-
-        // Adjust WebTarget
         WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(VERIFICATION_PATH).queryParam(API_KEY_PATH, apiKey);
-
-        // Create request
         Builder request = createRequest(webTarget);
-
-        // Create audio stream entity:
         Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("recording", audioInputStream);
-
-        // POST it
         Response response = request.post(multipartEntity);
-
-        // Validate and read response
         VerifyResponse verifyResponse = validate(response).readEntity(VerifyResponse.class);
 
         return verifyResponse;
     }
 
     public boolean resetVoiceprint(String voiceprintId) throws VoicepinClientException {
-
-        // Adjust WebTarget
         WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
-
-        // Create request
         Builder request = createRequest(webTarget);
-
-        // DELETE it
         Response response = request.delete();
 
         return validate(response).getStatus() == Status.OK.getStatusCode();
     }
 
     public boolean removeVoiceprint(String voiceprintId) throws VoicepinClientException {
-
-        // Adjust WebTarget
         WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).queryParam(API_KEY_PATH, apiKey);
-
-        // Create request
         Builder request = createRequest(webTarget);
-
-        // DELETE it
         Response response = request.delete();
 
         return validate(response).getStatus() == Status.OK.getStatusCode();
@@ -172,7 +122,7 @@ public class VoicepinClient {
 
     private Response validate(Response response) throws VoicepinClientException {
         if (response.getStatus() != Status.OK.getStatusCode()) {
-            throw new VoicepinClientException("VoicePIN returned: "+ "code: " + response.getStatus()+ " reason: "+ response.getStatusInfo().getReasonPhrase());
+            throw new VoicepinClientException(response.getStatus(), response.getStatusInfo().getReasonPhrase());
         }
         return response;
     }

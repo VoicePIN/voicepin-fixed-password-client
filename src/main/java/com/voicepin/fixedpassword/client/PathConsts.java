@@ -1,4 +1,4 @@
-package com.voicepin.example.client;
+package com.voicepin.fixedpassword.client;
 
 public class PathConsts {
 
