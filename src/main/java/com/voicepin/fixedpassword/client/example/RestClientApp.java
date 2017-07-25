@@ -14,16 +14,20 @@ public class RestClientApp {
 
     public static void main(String[] args) throws VoicepinClientException {
 
-        /* VoicePIN API url */
-        //String apiUrl = "https://api.voicepin.com/rest/v1/verifier/";
-        String apiUrl = "http://localhost:8080/voicepin-server/rest/v1/verifier/";
+        /* VoicePIN SaaS API URL */
+        String apiUrl = "https://api.voicepin.com/rest/v1/verifier/";
 
-        /* Data relating to your voice password - you should obtain these parameters from VoicePIN.com
+        /* or your local VoicePIN Server API URL */
+        //String apiUrl = "http://localhost:8080/voicepin-server/rest/v1/verifier/";
+
+        /* Data relating to your voice password - you can obtain these parameters from https://saas.voicepin.com/
+         * or your local VoicePIN installation (e.g. VoicePIN Studio - http://localhost:9000/, VoicePIN Server live
+         * documentation - http://localhost:8080/voicepin-server/ or database).
          *
-         * NOTE: Recordings provided with this example need to be used with 'Verify me with my voicepin' phrase.
+         * NOTE: Recordings provided with this example should be used with 'Verify me with my VoicePIN' phrase.
          */
-        String exampleApiKey = "6371f8b4-b08a-480f-ab82-11bd856f3f88";
-        String examplePasswordGroup = "test-password-group";
+        String exampleApiKey = "???????";
+        String examplePasswordGroup = "???????";
 
         /* Create client */
         VoicepinClient voicepinClient = new VoicepinClient(apiUrl, examplePasswordGroup, exampleApiKey);
@@ -40,8 +44,7 @@ public class RestClientApp {
         AddResponse addResponse = voicepinClient.addVoiceprint(null);
         String voiceprintId = addResponse.getVoiceprintId();
         System.out.println("New voiceprintId: " + addResponse.getVoiceprintId());
-        /* -- */
-        
+
         
         /* With the obtained voicepintId we can enroll a user (register voice and create voiceprint) 
          * For creating a voiceprint model we need three samples so we are going to enroll the voiceprint three times
@@ -54,14 +57,12 @@ public class RestClientApp {
         
         enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_3.wav"));
         System.out.println("Third sample enrollment result: " + enrollResponse);
-        /* -- */
-                
+
         
         /* Now we can ensure that the voiceprint is trained properly */
         IsTrainedResponse isTrainResponse = voicepinClient.isVoiceprintTrained(voiceprintId);
         System.out.println("Voiceprint successfully trained?: " + isTrainResponse.isTrained());
-        /* -- */
-        
+
         
         /* Finally we can verify the user with another audio streams */
         VerifyResponse verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_4.wav"));
@@ -69,23 +70,20 @@ public class RestClientApp {
 
         verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_5.wav"));
         System.out.println("Second sample verification result: " + verifyResponse);
-        /* -- */
-        
-        
+
         /* At the end it is possible to reset or remove the voiceprint
-         * - Reset is the inverse operation to the registration by three enrollments
-         * - Remove is the inverse operation to the adding a voiceprint 
+         * - Reset is the inverse operation to the voiceprint enrollment
+         * - Remove is the inverse operation to the voiceprint creation
          */
         boolean reset = voicepinClient.resetVoiceprint(voiceprintId);
         System.out.println("Voiceprint successfully reset?: " + reset);
 
         boolean deleted = voicepinClient.removeVoiceprint(voiceprintId);
         System.out.println("Voiceprint successfully removed?: " + deleted);
-        /* -- */
-        
+
     }
 
-    public static InputStream loadAudio(String wavePath) {
+    private static InputStream loadAudio(String wavePath) {
         return RestClientApp.class.getResourceAsStream(wavePath);
     }
 }

@@ -122,7 +122,7 @@ public class VoicepinClient {
 
     private Response validate(Response response) throws VoicepinClientException {
         if (response.getStatus() != Status.OK.getStatusCode()) {
-            throw new VoicepinClientException(response.getStatus(), response.getStatusInfo().getReasonPhrase());
+            throw new VoicepinServerError(response.getStatus(), response.getStatusInfo().getReasonPhrase());
         }
         return response;
     }

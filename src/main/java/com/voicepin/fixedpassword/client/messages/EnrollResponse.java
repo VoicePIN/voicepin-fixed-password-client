@@ -22,11 +22,11 @@ public class EnrollResponse extends Response {
         this.trained = value;
     }
 
-    public EnrollStatus getStatus() {
+    public EnrollStatus getEnrollStatus() {
         return enrollStatus;
     }
 
-    public void setStatus(EnrollStatus value) {
+    public void setEnrollStatus(EnrollStatus value) {
         this.enrollStatus = value;
     }
 
@@ -42,8 +42,8 @@ public class EnrollResponse extends Response {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("trained", trained)
-                .add("enrollDecision", enrollStatus)
-                .add("enrollDecisionReason", decisionReason)
+                .add("enrollStatus", enrollStatus)
+                .add("decisionReason", decisionReason)
                 .toString();
     }
 }

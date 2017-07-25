@@ -1,0 +1,58 @@
+import org.ajoberstar.grgit.Grgit
+
+buildscript {
+    repositories {
+        maven { url 'https://nexus.voicepin.com/repository/maven-releases'}
+    }
+}
+
+plugins {
+    id 'java'
+    id 'maven'
+    id 'pl.allegro.tech.build.axion-release' version '1.4.0'
+}
+
+group = 'com.voicepin.fixedpassword'
+version = scmVersion.version
+
+ext {
+    jerseyVersion = '2.19'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '22.0'
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: jerseyVersion
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: jerseyVersion
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.5.2'
+}
+
+task commitHash << {
+    print getCommitHash()
+}
+
+def getCommitHash() {
+    def repo = Grgit.open(project.file('.'))
+    return repo.log(maxCommits: 1).first().id
+}
+
+jar {
+    manifest {
+        attributes("Specification-Title": "VoicePIN Fixed Password Client",
+                "Implementation-Version": version,
+                "Implementation-Revision": getCommitHash())
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: 'https://nexus.voicepin.com/repository/maven-releases/') {
+                authentication(userName: voicepinNexusUser, password: voicepinNexusPassword)
+            }
+        }
+    }
+}
