@@ -1,34 +1,21 @@
-**/bin
-**/target
-**/.settings
-**/.classpath
-**/.project
-**/pom.xml.releaseBackup
-**/.pmd
-**/logs
-**/build
+.gradle
+/build/
 
-**\\.settings
-**\\bin
-**\\target
-**\\.classpath
-**\\.project
-**\\pom.xml.releaseBackup
-**\\.pmd
-**\\logs
-**\\build
+# Ignore Gradle GUI config
+gradle-app.setting
 
-**\\.directory
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
 
 .idea
-.settings
-target
-.project
-pom.xml.releaseBackup
-release.properties
-.pmd
+*.iws
 *.iml
-
-*.log
-*.conflict
-
