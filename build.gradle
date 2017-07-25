@@ -37,3 +37,5 @@ uploadArchives {
         }
     }
 }
+
+uploadArchives.dependsOn install

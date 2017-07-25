@@ -45,7 +45,6 @@ public class RestClientApp {
         String voiceprintId = addResponse.getVoiceprintId();
         System.out.println("New voiceprintId: " + addResponse.getVoiceprintId());
 
-        
         /* With the obtained voicepintId we can enroll a user (register voice and create voiceprint) 
          * For creating a voiceprint model we need three samples so we are going to enroll the voiceprint three times
          */
@@ -58,12 +57,10 @@ public class RestClientApp {
         enrollResponse = voicepinClient.enrollVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_3.wav"));
         System.out.println("Third sample enrollment result: " + enrollResponse);
 
-        
         /* Now we can ensure that the voiceprint is trained properly */
         IsTrainedResponse isTrainResponse = voicepinClient.isVoiceprintTrained(voiceprintId);
         System.out.println("Voiceprint successfully trained?: " + isTrainResponse.isTrained());
 
-        
         /* Finally we can verify the user with another audio streams */
         VerifyResponse verifyResponse = voicepinClient.verifyVoiceprint(voiceprintId, loadAudio("/example/verify-me-with-my-voicepin/record_4.wav"));
         System.out.println("First sample verification result: " + verifyResponse);
