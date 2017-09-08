@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.voicepin.fixedpassword.client.messages.*;
 import static com.voicepin.fixedpassword.client.PathConsts.*;
+
+import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
@@ -40,6 +42,7 @@ public class VoicepinClient {
         jsonProvider.setMapper(mapper);
 
         Client client = ClientBuilder.newClient();
+        client.property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true);
         client.register(MultiPartFeature.class);
         client.register(jsonProvider);
 
@@ -65,7 +68,13 @@ public class VoicepinClient {
     }
 
     public IsTrainedResponse isVoiceprintTrained(String voiceprintId) throws VoicepinClientException {
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
+        return isVoiceprintTrained(voiceprintId, Channel.UNKNOWN);
+    }
+
+    public IsTrainedResponse isVoiceprintTrained(String voiceprintId, Channel channel) throws VoicepinClientException {
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH)
+                .queryParam(API_KEY_PATH, apiKey)
+                .queryParam(CHANNEL_CODE, channel);
         Builder request = createRequest(webTarget);
         Response response = request.get();
         IsTrainedResponse isTrainedResponse = validate(response).readEntity(IsTrainedResponse.class);
@@ -74,7 +83,13 @@ public class VoicepinClient {
     }
 
     public EnrollResponse enrollVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
+        return enrollVoiceprint(voiceprintId, audioInputStream, Channel.UNKNOWN);
+    }
+
+    public EnrollResponse enrollVoiceprint(String voiceprintId, InputStream audioInputStream, Channel channel) throws VoicepinClientException {
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH)
+                .queryParam(API_KEY_PATH, apiKey)
+                .queryParam(CHANNEL_CODE, channel);
         Builder request = createRequest(webTarget);
         Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("recording", audioInputStream);
         Response response = request.post(multipartEntity);
@@ -84,7 +99,13 @@ public class VoicepinClient {
     }
 
     public VerifyResponse verifyVoiceprint(String voiceprintId, InputStream audioInputStream) throws VoicepinClientException {
-        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(VERIFICATION_PATH).queryParam(API_KEY_PATH, apiKey);
+        return verifyVoiceprint(voiceprintId, audioInputStream, Channel.UNKNOWN);
+    }
+
+    public VerifyResponse verifyVoiceprint(String voiceprintId, InputStream audioInputStream, Channel channel) throws VoicepinClientException {
+        WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(VERIFICATION_PATH)
+                .queryParam(API_KEY_PATH, apiKey)
+                .queryParam(CHANNEL_CODE, channel);
         Builder request = createRequest(webTarget);
         Entity<FormDataMultiPart> multipartEntity = createStreamMultipartEntity("recording", audioInputStream);
         Response response = request.post(multipartEntity);
@@ -94,7 +115,15 @@ public class VoicepinClient {
     }
 
     public boolean resetVoiceprint(String voiceprintId) throws VoicepinClientException {
+        return resetVoiceprint(voiceprintId, null);
+    }
+
+    public boolean resetVoiceprint(String voiceprintId, Channel channel) throws VoicepinClientException {
         WebTarget webTarget = baseWebTarget.path(VOICEPRINT_PATH).path(voiceprintId).path(ENROLLMENT_PATH).queryParam(API_KEY_PATH, apiKey);
+        if (channel != null) {
+            webTarget = webTarget.queryParam(CHANNEL_CODE, channel);
+        }
+
         Builder request = createRequest(webTarget);
         Response response = request.delete();
 
