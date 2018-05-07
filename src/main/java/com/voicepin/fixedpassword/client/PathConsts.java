@@ -9,5 +9,6 @@ public class PathConsts {
 
     public static final String USER_IDENTIFIER = "speakerId";
     public static final String API_KEY_PATH = "apiKey";
+    public static final String CHANNEL_CODE = "channelCode";
 
 }
