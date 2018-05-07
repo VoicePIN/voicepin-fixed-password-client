@@ -1,7 +1,6 @@
 package com.voicepin.fixedpassword.client.messages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
 
 public class EnrollResponse extends Response {
 
@@ -40,10 +39,11 @@ public class EnrollResponse extends Response {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("trained", trained)
-                .add("enrollStatus", enrollStatus)
-                .add("decisionReason", decisionReason)
-                .toString();
+        final StringBuilder sb = new StringBuilder("EnrollResponse{");
+        sb.append("trained=").append(trained);
+        sb.append(", enrollStatus=").append(enrollStatus);
+        sb.append(", decisionReason=").append(decisionReason);
+        sb.append('}');
+        return sb.toString();
     }
 }

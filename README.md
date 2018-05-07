@@ -15,7 +15,7 @@ Add VoicePIN.com Maven repository to `build.gradle`:
 Add voicepin-fixed-password-client dependency:
 
     dependencies {
-        compile 'com.voicepin.fixedpassword:voicepin-fixed-password-client:1.0.0'
+        compile 'com.voicepin.fixedpassword:voicepin-fixed-password-client:1.0.1'
     }
 
 # Maven dependency

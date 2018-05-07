@@ -10,6 +10,9 @@ plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.7.1'
 }
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 group = 'com.voicepin.fixedpassword'
 version = scmVersion.version
 
@@ -22,7 +25,6 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.google.guava', name: 'guava', version: '22.0'
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: jerseyVersion
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: jerseyVersion
     compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.5.2'

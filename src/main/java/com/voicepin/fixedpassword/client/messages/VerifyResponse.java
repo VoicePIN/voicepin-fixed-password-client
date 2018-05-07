@@ -39,10 +39,11 @@ public class VerifyResponse extends Response {
 
     @Override
     public String toString() {
-        return com.google.common.base.MoreObjects.toStringHelper(this)
-                .add("score", score)
-                .add("decision", decision)
-                .add("decisionReason", decisionReason)
-                .toString();
+        final StringBuilder sb = new StringBuilder("VerifyResponse{");
+        sb.append("score=").append(score);
+        sb.append(", decision=").append(decision);
+        sb.append(", decisionReason=").append(decisionReason);
+        sb.append('}');
+        return sb.toString();
     }
 }
