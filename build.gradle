@@ -7,7 +7,7 @@ buildscript {
 plugins {
     id 'java'
     id 'maven'
-    id 'pl.allegro.tech.build.axion-release' version '1.7.1'
+    id 'pl.allegro.tech.build.axion-release' version '1.9.0'
 }
 
 sourceCompatibility = 1.7
