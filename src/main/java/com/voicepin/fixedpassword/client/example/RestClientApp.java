@@ -9,13 +9,12 @@ import com.voicepin.fixedpassword.client.messages.EnrollResponse;
 import com.voicepin.fixedpassword.client.messages.IsTrainedResponse;
 import com.voicepin.fixedpassword.client.messages.VerifyResponse;
 
-
 public class RestClientApp {
 
     public static void main(String[] args) throws VoicepinClientException {
 
         /* VoicePIN SaaS API URL */
-        String apiUrl = "https://api.voicepin.com/rest/v1/verifier/";
+        String apiUrl = "http://bio.test.dronn.com:8080/voicepin-server/rest/v1/verifier";
 
         /* or your local VoicePIN Server API URL */
         //String apiUrl = "http://localhost:8080/voicepin-server/rest/v1/verifier/";
@@ -26,8 +25,9 @@ public class RestClientApp {
          *
          * NOTE: Recordings provided with this example should be used with 'Verify me with my VoicePIN' phrase.
          */
-        String exampleApiKey = "???????";
-        String examplePasswordGroup = "???????";
+//        String exampleApiKey = "9a2fbd0a-99b8-4c78-b1d8-ef00e42bf168";
+        String exampleApiKey = "31a86ed0-d583-47e3-8c68-8826b9db811a";
+        String examplePasswordGroup = "VerifyMeWithMyVoicepin";
 
         /* Create client */
         VoicepinClient voicepinClient = new VoicepinClient(apiUrl, examplePasswordGroup, exampleApiKey);
