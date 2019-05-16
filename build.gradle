@@ -28,6 +28,8 @@ dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: jerseyVersion
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: jerseyVersion
     compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.5.2'
+
+    compile 'javax.activation:activation:1.1.1'
 }
 
 uploadArchives {
