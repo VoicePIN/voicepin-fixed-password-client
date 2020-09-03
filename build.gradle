@@ -2,6 +2,9 @@ buildscript {
     repositories {
         maven { url 'https://nexus.voicepin.com/repository/maven-releases'}
     }
+    dependencies {
+        classpath 'org.owasp:dependency-check-gradle:5.3.2'
+    }
 }
 
 plugins {
@@ -9,6 +12,8 @@ plugins {
     id 'maven'
     id 'pl.allegro.tech.build.axion-release' version '1.9.0'
 }
+
+apply plugin: 'org.owasp.dependencycheck'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -27,7 +32,7 @@ repositories {
 dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: jerseyVersion
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: jerseyVersion
-    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.5.2'
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.11.2'
 
     compile 'javax.activation:activation:1.1.1'
 }
